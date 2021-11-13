@@ -18,6 +18,8 @@ const envVarsSchema = Joi.object()
     JWT_VERIFY_EMAIL_EXPIRATION_MINUTES: Joi.number()
       .default(10)
       .description('minutes after which verify email token expires'),
+    SLACK_CLIENT_ID: Joi.string().required().description('Slack Client ID'),
+    SLACK_SECRET: Joi.string().required().description('Slack Secret'),
     SMTP_HOST: Joi.string().description('server that will send the emails'),
     SMTP_PORT: Joi.number().description('port to connect to the email server'),
     SMTP_USERNAME: Joi.string().description('username for email server'),
@@ -49,6 +51,10 @@ module.exports = {
     refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
     resetPasswordExpirationMinutes: envVars.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
     verifyEmailExpirationMinutes: envVars.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES,
+  },
+  slack: {
+    secret: envVars.SLACK_SECRET,
+    clientId: envVars.SLACK_CLIENT_ID,
   },
   email: {
     smtp: {

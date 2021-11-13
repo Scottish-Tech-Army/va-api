@@ -1,4 +1,5 @@
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+const SlackStrategy = require('passport-slack').Strategy;
 const config = require('./config');
 const { tokenTypes } = require('./tokens');
 const { User } = require('../models');
@@ -23,8 +24,15 @@ const jwtVerify = async (payload, done) => {
   }
 };
 
+const slackOptions = {
+  clientID: config.slack.clientId,
+  clientSecret: config.slack.secret,
+};
+
 const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
+const slackStrategy = new SlackStrategy(slackOptions);
 
 module.exports = {
   jwtStrategy,
+  slackStrategy,
 };
